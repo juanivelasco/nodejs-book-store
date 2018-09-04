@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+        <% include ./partials/header %>
+
+    <head><title>Checkout</title></head>
+    <body>
+            <nav class="nav">
+                    <ul class="nav nav-tabs">
+                        <li class="nav-item">
+                        <a class="nav-link " href="/">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " href="/shop">Store</a>
+                            </li>
+                        
+                        </li>
+                    </ul>
+                </nav>
+        
+
+       
+            
+           
+                
+                  
+        <table class = "table table">
+            <tr>
+
+                <td align="center" colspan="5"><h1>Your Total Today is:</h1></td>
+            </tr>
+            
+                <tr>
+                    
+                        <td align="center"><h2>$<%= shoppingcart.totalPrice.toFixed(2) %></h2></td>
+                </tr>
+
+                <tr>
+
+                    <td align="center" colspan="5"><h1>Thank You!!</h1></td>
+                </tr>
+            </table>
+            
+          
+            
+            
+            
+    </body>
+</html>

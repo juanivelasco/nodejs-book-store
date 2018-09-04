@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<% include ./partials/header %>
+
+    <body>
+        <nav class="nav">
+            <ul class="nav nav-tabs">
+                
+                <li class="nav-item">
+                <a class="nav-link" href="/admin">Administration</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="/shop">Store</a>
+                </li>
+                </li>
+            </ul>
+        </nav>
+       
+            <h3>Welcome to <%= store_title %>!</h3>
+
+
+       
+        
+        <div class="container" align="center">
+        <div class="jumbotron" align="center">
+            <h1>Go to the Administration Page</h1>
+            
+            <button onclick="location.href = '/admin';" id="myButton" class="btn btn-primary" class="float-left submit-button" >Administration</button>
+           
+            <h1>Go to the Store</h1>
+            
+            <button onclick="location.href = '/shop';" id="myButton" class="btn btn-primary" class="float-left submit-button" >Store</button>
+        </div>
+        </div>
+
+
+    
+    </body>
+
+</html>
