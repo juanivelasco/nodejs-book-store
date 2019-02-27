@@ -23,7 +23,7 @@ app.use(session({
 
 const ShoppingCart = require('./models/ShoppingCart');
 const Book = require('./models/Book');
-app.locals.store_title = 'MyBroncho Online';
+app.locals.store_title = 'Something Different';
 
 
 
@@ -49,7 +49,7 @@ const upload = multer({
     storage: storageOptions,
     limits: {
         fileSize: MAX_FILESIZE
-    }, 
+    },
     fileFilter: (req, file, callback) => {
         const extname = fileTypes.test(path.extname(file.originalname).toLowerCase());
         const mimetype = fileTypes.test(file.mimetype);
@@ -85,8 +85,8 @@ app.get('/shop', (req, res) => {
 
 app.post('/addBook', (req, res) => {
 	const book_id = req.body._id;
-	
-    
+
+
     BookSchema.findOne({_id: book_id}, (err, result) => {
         if (err) {
             return res.render.status(500).send('<h1>Error</h1>');
@@ -96,7 +96,7 @@ app.post('/addBook', (req, res) => {
         }
 
         const buyBook = new Book(result);
-        
+
         const shoppingcart = ShoppingCart.deserialize(req.session.shoppingcart);
         shoppingcart.add(buyBook);
         req.session.shoppingcart = shoppingcart.serialize();
@@ -108,9 +108,9 @@ app.post('/addBook', (req, res) => {
 app.get('/checkout', (req, res) => {
     let message = '';
     if (!req.session.shoppingcart) {
-        message = "Did't you buy anything yet? Why checkout?";  
+        message = "Did't you buy anything yet? Why checkout?";
     } else {
-        
+
         const shoppingcart = ShoppingCart.deserialize(req.session.shoppingcart);
         res.render('checkout', {shoppingcart});
     }
@@ -130,14 +130,14 @@ app.get('/add', (req, res) => {
 });
 
 app.post('/add', (req, res) => {
-        
+
     upload(req, res, (err) => {
         const newBook = new BookSchema({
              title: req.body.title,
              author: req.body.author,
              price: req.body.price,
              cover: uploadDir + '/' + req.file.filename
-    
+
         });
         newBook.save((err, results) => {
             if (err) {
@@ -150,7 +150,7 @@ app.post('/add', (req, res) => {
 });
 
 app.get('/update', (req, res) => {
-    
+
     BookSchema.findById(req.query.bookID, (err, book) => {
 		if (err) {
 			return res.render.status(500).send('<h1>Error</h1>');
@@ -177,7 +177,7 @@ app.post('/update', (req, res) => {
         } else {
         fs.unlink(req.body.cover, (err) => {
                  if (err) {
-                    
+
                     throw err;
                 }
             });
@@ -199,7 +199,7 @@ app.post('/update', (req, res) => {
             if (err) {
                 return res.status(500).send('<h1>Update Error</h1>');
             }
-            
+
             return res.redirect('/admin');
         });
     });
