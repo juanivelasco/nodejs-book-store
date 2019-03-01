@@ -160,15 +160,10 @@ app.get('/update', (req, res) => {
 
 });
 
-
-
-
-
 const port = process.env.PORT || 3000;
 app.listen(port, ()=> {
 	console.log('Server started at port', port);
 });
-
 
 app.post('/update', (req, res) => {
     upload(req, res, (err) => {
@@ -204,7 +199,6 @@ app.post('/update', (req, res) => {
         });
     });
 });
-
 
 app.get('/remove', (req, res) => {
 	BookSchema.remove({_id: req.query._id}, (err, results) => {
