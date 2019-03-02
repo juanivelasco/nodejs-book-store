@@ -1,3 +1,4 @@
+
 const multer = require('multer');
 const ejs = require('ejs');
 const path = require('path');
@@ -57,6 +58,7 @@ const upload = multer({
     }
 }).single('image'); // parameter name at <form> of index.ejs
 
+
 // run and connect to the database
 require('./models/database');
 const BookSchema = require('./models/bookSchema');
@@ -80,15 +82,18 @@ app.get('/shop', (req, res) => {
 
 app.post('/addBook', (req, res) => {
 	const book_id = req.body._id;
-	BookSchema.findOne({_id: book_id}, (err, result) => {
+
+
+    BookSchema.findOne({_id: book_id}, (err, result) => {
         if (err) {
             return res.render.status(500).send('<h1>Error</h1>');
         }
         if (!req.session.shoppingcart) {
             req.session.shoppingcart = new ShoppingCart().serialize();
         }
-	const buyBook = new Book(result);
-	const shoppingcart = ShoppingCart.deserialize(req.session.shoppingcart);
+        const buyBook = new Book(result);
+
+        const shoppingcart = ShoppingCart.deserialize(req.session.shoppingcart);
         shoppingcart.add(buyBook);
         req.session.shoppingcart = shoppingcart.serialize();
 
@@ -121,6 +126,7 @@ app.get('/add', (req, res) => {
 });
 
 app.post('/add', (req, res) => {
+
     upload(req, res, (err) => {
         const newBook = new BookSchema({
              title: req.body.title,
@@ -140,7 +146,8 @@ app.post('/add', (req, res) => {
 });
 
 app.get('/update', (req, res) => {
-	BookSchema.findById(req.query.bookID, (err, book) => {
+
+    BookSchema.findById(req.query.bookID, (err, book) => {
 		if (err) {
 			return res.render.status(500).send('<h1>Error</h1>');
         }
@@ -161,12 +168,15 @@ app.post('/update', (req, res) => {
         } else {
         fs.unlink(req.body.cover, (err) => {
                  if (err) {
-			throw err;
+
+                    throw err;
                 }
             });
             image = uploadDir + '/' + req.file.filename;
-	}
-	const query = {_id: req.body._id};
+
+        }
+
+        const query = {_id: req.body._id};
         const value = {
             $set: {
                 title: req.body.title,
@@ -189,7 +199,7 @@ app.post('/update', (req, res) => {
 app.get('/remove', (req, res) => {
 	BookSchema.remove({_id: req.query._id}, (err, results) => {
 		if (err) {
-		  return res.status(500).send('<h1>Remove error</h1>');
+			return res.status(500).send('<h1>Remove error</h1>');
         }
         fs.unlink(req.query.filename, (err) => {
             if (err) {
@@ -197,6 +207,6 @@ app.get('/remove', (req, res) => {
                 throw err;
             }
         });
-	    return res.redirect('/admin');
+		return res.redirect('/admin');
 	});
 });
