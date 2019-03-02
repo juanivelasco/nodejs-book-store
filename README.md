@@ -1,3 +1,1 @@
-nodejs-project3
-
-Adding to functionality
+A book store example using Node.js and mongoDB
