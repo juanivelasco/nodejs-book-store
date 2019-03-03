@@ -126,8 +126,7 @@ app.get('/add', (req, res) => {
 });
 
 app.post('/add', (req, res) => {
-
-    upload(req, res, (err) => {
+       upload(req, res, (err) => {
         const newBook = new BookSchema({
              title: req.body.title,
              author: req.body.author,
