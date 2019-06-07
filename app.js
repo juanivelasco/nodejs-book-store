@@ -9,14 +9,14 @@ const app = express();
 app.set('view engine', 'ejs');
 app.set('views', './views');
 app.use('/public', express.static(__dirname + '/public'));
-app.use(express.urlencoded( {extended: false} ));
+app.use(express.urlencoded({ extended: false }));
 
 app.use(session({
-	secret: 'mysecretkey',
-	resave: false,
+    secret: 'mysecretkey',
+    resave: false,
     saveUninitialized: true,
     cookie: {
-        maxAge: 60*60*1000, // if inactive, session expires in 1 hour
+        maxAge: 60 * 60 * 1000, // if inactive, session expires in 1 hour
         path: '/'
     }
 }));
@@ -73,18 +73,18 @@ app.get('/shop', (req, res) => {
         req.session.shoppingcart = new ShoppingCart().serialize();
     }
     BookSchema.find({}, (err, results) => {
-		if (err) {
-			return res.render.status(500).send('<h1>Error</h1>');
+        if (err) {
+            return res.render.status(500).send('<h1>Error</h1>');
         }
-		return res.render('shop', {results, BookSchema});
-	});
+        return res.render('shop', { results, BookSchema });
+    });
 });
 
 app.post('/addBook', (req, res) => {
-	const book_id = req.body._id;
+    const book_id = req.body._id;
 
 
-    BookSchema.findOne({_id: book_id}, (err, result) => {
+    BookSchema.findOne({ _id: book_id }, (err, result) => {
         if (err) {
             return res.render.status(500).send('<h1>Error</h1>');
         }
@@ -97,7 +97,7 @@ app.post('/addBook', (req, res) => {
         shoppingcart.add(buyBook);
         req.session.shoppingcart = shoppingcart.serialize();
 
-        res.render('shoppingcart', {shoppingcart});
+        res.render('shoppingcart', { shoppingcart });
     });
 });
 
@@ -108,30 +108,30 @@ app.get('/checkout', (req, res) => {
     } else {
 
         const shoppingcart = ShoppingCart.deserialize(req.session.shoppingcart);
-        res.render('checkout', {shoppingcart});
+        res.render('checkout', { shoppingcart });
     }
 });
 
 app.get('/admin', (req, res) => {
-	BookSchema.find({}, (err, results) => {
-		if (err) {
-			return res.render.status(500).send('<h1>Error</h1>');
+    BookSchema.find({}, (err, results) => {
+        if (err) {
+            return res.render.status(500).send('<h1>Error</h1>');
         }
-		return res.render('admin', {results, BookSchema});
-	});
+        return res.render('admin', { results, BookSchema });
+    });
 });
 
 app.get('/add', (req, res) => {
-	res.render('add', {msg: null});
+    res.render('add', { msg: null });
 });
 
 app.post('/add', (req, res) => {
-       upload(req, res, (err) => {
+    upload(req, res, (err) => {
         const newBook = new BookSchema({
-             title: req.body.title,
-             author: req.body.author,
-             price: req.body.price,
-             cover: uploadDir + '/' + req.file.filename
+            title: req.body.title,
+            author: req.body.author,
+            price: req.body.price,
+            cover: uploadDir + '/' + req.file.filename
 
         });
         newBook.save((err, results) => {
@@ -147,26 +147,26 @@ app.post('/add', (req, res) => {
 app.get('/update', (req, res) => {
 
     BookSchema.findById(req.query.bookID, (err, book) => {
-		if (err) {
-			return res.render.status(500).send('<h1>Error</h1>');
+        if (err) {
+            return res.render.status(500).send('<h1>Error</h1>');
         }
-		return res.render('update', {book});
-	});
+        return res.render('update', { book });
+    });
 
 });
 
 const port = process.env.PORT || 3000;
-app.listen(port, ()=> {
-	console.log('Server started at port', port);
+app.listen(port, () => {
+    console.log('Server started at port', port);
 });
 
 app.post('/update', (req, res) => {
     upload(req, res, (err) => {
         let image = req.body.cover;
-        if(!req.file) {
+        if (!req.file) {
         } else {
-        fs.unlink(req.body.cover, (err) => {
-                 if (err) {
+            fs.unlink(req.body.cover, (err) => {
+                if (err) {
 
                     throw err;
                 }
@@ -175,7 +175,7 @@ app.post('/update', (req, res) => {
 
         }
 
-        const query = {_id: req.body._id};
+        const query = { _id: req.body._id };
         const value = {
             $set: {
                 title: req.body.title,
@@ -196,9 +196,9 @@ app.post('/update', (req, res) => {
 });
 
 app.get('/remove', (req, res) => {
-	BookSchema.remove({_id: req.query._id}, (err, results) => {
-		if (err) {
-			return res.status(500).send('<h1>Remove error</h1>');
+    BookSchema.remove({ _id: req.query._id }, (err, results) => {
+        if (err) {
+            return res.status(500).send('<h1>Remove error</h1>');
         }
         fs.unlink(req.query.filename, (err) => {
             if (err) {
@@ -206,6 +206,6 @@ app.get('/remove', (req, res) => {
                 throw err;
             }
         });
-		return res.redirect('/admin');
-	});
+        return res.redirect('/admin');
+    });
 });

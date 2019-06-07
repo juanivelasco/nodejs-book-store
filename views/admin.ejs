@@ -2,23 +2,23 @@
 <html lang="en">
 <% include ./partials/header %>
 
-    <body>
-        <nav class="nav">
-            <ul class="nav nav-tabs">
-                <li class="nav-item">
+<body>
+    <nav class="nav">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
                 <a class="nav-link " href="/">Home</a>
-                </li>
-                <li class="nav-item">
+            </li>
+            <li class="nav-item">
                 <a class="nav-link" href="/add">Add Book</a>
-                </li>
-                <li class="nav-item">
-                        <a class="nav-link" href="/shop">Store</a>
-                    </li>
-                </li>
-            </ul>
-        </nav>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/shop">Store</a>
+            </li>
+            </li>
+        </ul>
+    </nav>
 
-        <div class="container">
+    <div class="container">
         <div class="jumbotron">
             <div class="container">
                 <h2 class="display-5">Books</h2>
@@ -26,16 +26,16 @@
                 <table class="table table-hover table-dark">
                     <thead>
                         <tr>
-                        <th scope="col">Title</th>
-                        <th scope="col">Author</th>
-                        <th scope="col">Price</th>
-                        <th scope="col">Image</th>
-                        <th scope="col">Update</th>
-                        <th scope="col">Remove</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Author</th>
+                            <th scope="col">Price</th>
+                            <th scope="col">Image</th>
+                            <th scope="col">Update</th>
+                            <th scope="col">Remove</th>
                         </tr>
                     </thead>
                     <tbody>
-                    <% for (const book of results) { %>
+                        <% for (const book of results) { %>
                         <tr>
                             <td><%= book.title %></td>
                             <td><%= book.author %></td>
@@ -44,7 +44,7 @@
                             <td>
                                 <form action="/update" method="get">
                                     <input type="hidden" name="bookID" value="<%= book._id %>">
-                                    
+
                                     <button type="submit" class="btn btn-primary">Update</button>
                                 </form>
                             </td>
@@ -56,15 +56,15 @@
                                 </form>
                             </td>
                         </tr>
-                    <% } %>
+                        <% } %>
                     </tbody>
                 </table>
             </div>
         </div>
-        </div>
+    </div>
 
 
     <% include ./partials/scripts %>
-    </body>
+</body>
 
-</html> 
+</html>

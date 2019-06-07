@@ -1,46 +1,52 @@
 <!DOCTYPE html>
 <html lang="en">
-        <% include ./partials/header %>
+<% include ./partials/header %>
 
-    <head><title>Shopping Cart</title></head>
-    <body>
-            <nav class="nav">
-                    <ul class="nav nav-tabs">
-                        <li class="nav-item">
-                        <a class="nav-link " href="/">Home</a>
-                        </li>
-                        
-                        </li>
-                    </ul>
-                </nav>
-        <h2>Shopping Cart</h2>
+<head>
+    <title>Shopping Cart</title>
+</head>
 
-        <table class = "table table">
-            <tr>
-                <th align="center">Cover</th>
-                <th align="center">Title</th>
-                <th align="center">Author</th>
-                <th align="center">Price</th>
-                <th align="center">Quantity</th>
-                <th align="center">Subtotal</th>
-            </tr>
-            <%  for (const item of shoppingcart.cart ) { %>
-                <tr>
-                    <td align="left"> <img src='<%= item.book.cover %>' width=100 height=120> </td>
-                    <td align="left"> <%= item.book.title %> </td>
-                    <td align="left"> <%= item.book.author %> </td>
-                    <td align="left"> $<%= item.book.price %> </td>
-                    <td align="left"> <%= item.qty %> </td>
-                    <td align=""> $<%= (item.book.price*item.qty).toFixed(2) %> </td>
-                </tr>
-                <% } %>
-                <tr>
-                    <td align="right" colspan="5">TOTAL</td>
-                        <td align="right">$<%= shoppingcart.totalPrice.toFixed(2) %></td>
-                </tr>
-            </table>
-        
-            <button onclick="location.href = '/shop';" id="myButton" class="btn btn-primary" class="float-left submit-button" >Continue Shopping</button>
-            <button onclick="location.href = '/checkout';" id="myButton" class="btn btn-primary" class="float-left submit-button" >Checkout</button>
-    </body>
+<body>
+    <nav class="nav">
+        <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link " href="/">Home</a>
+            </li>
+
+            </li>
+        </ul>
+    </nav>
+    <h2>Shopping Cart</h2>
+
+    <table class="table table">
+        <tr>
+            <th align="center">Cover</th>
+            <th align="center">Title</th>
+            <th align="center">Author</th>
+            <th align="center">Price</th>
+            <th align="center">Quantity</th>
+            <th align="center">Subtotal</th>
+        </tr>
+        <%  for (const item of shoppingcart.cart ) { %>
+        <tr>
+            <td align="left"> <img src='<%= item.book.cover %>' width=100 height=120> </td>
+            <td align="left"> <%= item.book.title %> </td>
+            <td align="left"> <%= item.book.author %> </td>
+            <td align="left"> $<%= item.book.price %> </td>
+            <td align="left"> <%= item.qty %> </td>
+            <td align=""> $<%= (item.book.price*item.qty).toFixed(2) %> </td>
+        </tr>
+        <% } %>
+        <tr>
+            <td align="right" colspan="5">TOTAL</td>
+            <td align="right">$<%= shoppingcart.totalPrice.toFixed(2) %></td>
+        </tr>
+    </table>
+
+    <button onclick="location.href = '/shop';" id="myButton" class="btn btn-primary"
+        class="float-left submit-button">Continue Shopping</button>
+    <button onclick="location.href = '/checkout';" id="myButton" class="btn btn-primary"
+        class="float-left submit-button">Checkout</button>
+</body>
+
 </html>
